@@ -19,7 +19,7 @@ int main()
     scanf("%d", &total_number_of_queries);
 
     //making shelves 
-    int **total_number_of_pages = (int**) malloc(sizeof(int) * total_number_of_shelves);
+    int **total_number_of_pages = (int**) malloc(sizeof(int*) * total_number_of_shelves);
 
     //making sure shelves are empty
     for(int i = 0; i < total_number_of_shelves; i++) {
