@@ -37,13 +37,20 @@ int** total_number_of_pages;
             /*
              * Process the query of first type here.
              */
-            int x, y, bn=0;
+            int x, y;
             scanf("%d %d", &x, &y);
-            if(total_number_of_books[x])
-            total_number_of_pages[x] = (int*)realloc(total_number_of_pages[x], (total_number_of_books[x]+1) * sizeof(int));
+            
+            if(total_number_of_books[x]){
+              total_number_of_pages[x] = (int*)realloc(total_number_of_pages[x], (total_number_of_books[x]+1) * sizeof(int));
             total_number_of_books[x]++;
-            total_number_of_pages[x][total_number_of_books[x]-1] = y;
-            bn++;
+            total_number_of_pages[x][total_number_of_books[x]-1] = y; }
+            
+            else{
+                total_number_of_pages[x] = malloc(sizeof(int));
+                total_number_of_books[x]++;
+                total_number_of_pages[x][total_number_of_books[x]] = y;
+                
+            }
 
         } else if (type_of_query == 2) {
             int x, y;
