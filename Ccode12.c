@@ -1,3 +1,5 @@
+// HackerRank question for Dynamic allocation of arrays
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -20,11 +22,11 @@ int** total_number_of_pages;
     int total_number_of_queries;
     scanf("%d", &total_number_of_queries);
     
-    total_number_of_books = malloc(total_number_of_shelves * sizeof(int));
+    total_number_of_books = malloc(total_number_of_shelves * sizeof(int));          // Dynamic allocation of shelves
     for(int i = 0; i < total_number_of_shelves; i++)
        total_number_of_books[i] = NULL;
           
-    total_number_of_pages = malloc(total_number_of_queries * sizeof(int *));
+    total_number_of_pages = malloc(total_number_of_shelves * sizeof(int *));
     
     for(int i = 0; i < total_number_of_shelves; i++)
             total_number_of_pages[i] = NULL;
@@ -37,27 +39,30 @@ int** total_number_of_pages;
             /*
              * Process the query of first type here.
              */
-            int x, y;
+            int x, y;                          // x --> Shelf number,  y --> Number of pages
             scanf("%d %d", &x, &y);
             
-            if(total_number_of_books[x]){
+            if(total_number_of_books[x])            // if condition is executed only from second book onwards
+            {
               total_number_of_pages[x] = (int*)realloc(total_number_of_pages[x], (total_number_of_books[x]+1) * sizeof(int));
-            total_number_of_books[x]++;
-            total_number_of_pages[x][total_number_of_books[x]-1] = y; }
+                //  Dynamically allocating each cell for every new book
+              total_number_of_books[x]++;
+              total_number_of_pages[x][total_number_of_books[x]-1] = y; 
+            }
             
-            else{
+            else                                  //  this block is executed for every first book of the shelf
+            {
                 total_number_of_pages[x] = malloc(sizeof(int));
                 total_number_of_books[x]++;
-                total_number_of_pages[x][total_number_of_books[x]] = y;
-                
+                total_number_of_pages[x][0] = y;
             }
 
         } else if (type_of_query == 2) {
-            int x, y;
+            int x, y;                                          //  x --> Shelf number,  y --> Book index
             scanf("%d %d", &x, &y);
             printf("%d\n", *(*(total_number_of_pages + x) + y));
         } else {
-            int x;
+            int x;                                            //  x --> Shelf index
             scanf("%d", &x);
             printf("%d\n", *(total_number_of_books + x));
         }
