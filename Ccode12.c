@@ -4,34 +4,35 @@
 /*
  * This stores the total number of books in each shelf.
  */
-int *total_number_of_books;
+int* total_number_of_books;
 
 /*
  * This stores the total number of pages in each book of each shelf.
  * The rows represent the shelves and the columns represent the books.
  */
-int **total_number_of_pages;
+int** total_number_of_pages;
 
-int main()
+  int main()
 {
     int total_number_of_shelves;
     scanf("%d", &total_number_of_shelves);
     
     int total_number_of_queries;
     scanf("%d", &total_number_of_queries);
-
-    total_number_of_books = (int*)malloc(total_number_of_shelves * sizeof(int));
+    
+    total_number_of_books = malloc(total_number_of_shelves * sizeof(int));
     for(int i = 0; i < total_number_of_shelves; i++)
-       total_number_of_books[i] = 0;
-
-    total_number_of_pages = malloc(total_number_of_shelves * sizeof(int *));
+       total_number_of_books[i] = NULL;
+          
+    total_number_of_pages = malloc(total_number_of_queries * sizeof(int *));
     for(int i = 0; i < total_number_of_shelves; i++)
        total_number_of_pages[i] = malloc(total_number_of_queries * sizeof(int));
-
-    for(int i = 0; i < total_number_of_shelves; i++){                  // this i added just now
+    
+    for(int i = 0; i < total_number_of_shelves; i++){
         for(int j = 0; j < total_number_of_queries; j++){
-            total_number_of_pages[i][j] = 0;  }}
-
+            total_number_of_pages[i][j] = NULL;
+        }
+    }
     
     while (total_number_of_queries--) {
         int type_of_query;
@@ -41,12 +42,14 @@ int main()
             /*
              * Process the query of first type here.
              */
-            int x, y, bn=0;
+            int x, y;
             scanf("%d %d", &x, &y);
-                                                    //   <------- should i use realloc here
+            
+            if(total_number_of_books[x])
+            total_number_of_pages[x] = (int*)realloc(total_number_of_pages[x], (total_number_of_books[x]+1) * sizeof(int));
+            
             total_number_of_books[x]++;
-            total_number_of_pages[x][bn] = y;
-            bn++;
+            total_number_of_pages[x][total_number_of_books[x]-1] = y;
 
         } else if (type_of_query == 2) {
             int x, y;
