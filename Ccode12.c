@@ -28,6 +28,10 @@ int main()
     for(int i = 0; i < total_number_of_shelves; i++)
        total_number_of_pages[i] = malloc(total_number_of_queries * sizeof(int));
 
+    for(int i = 0; i < total_number_of_shelves; i++){                  // this i added just now
+        for(int j = 0; j < total_number_of_queries; j++){
+            total_number_of_pages[i][j] = 0;  }}
+
     
     while (total_number_of_queries--) {
         int type_of_query;
@@ -39,6 +43,7 @@ int main()
              */
             int x, y, bn=0;
             scanf("%d %d", &x, &y);
+                                                    //   <------- should i use realloc here
             total_number_of_books[x]++;
             total_number_of_pages[x][bn] = y;
             bn++;
