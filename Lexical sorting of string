@@ -1,0 +1,126 @@
+/*
+Lexical sorting of an array of strings
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int lexicographic_sort(const char* a, const char* b) {        // (1)
+    if(a[0]>b[0])           // Checking first character
+      return 0;
+    else return 1;
+}
+
+int lexicographic_sort_reverse(const char* a, const char* b) {          // (2)
+    if(a[0]<b[0])          // Just reverse
+      return 0;
+    else return 1;
+}
+
+int sort_by_number_of_distinct_characters(const char* a, const char* b) {         // (3)
+    char DC;             // Descrete Character
+    int aDC=1, bDC=1;         // Count of descrete characters in 'a' and 'b'
+    for(int i=0; i<strlen(a); i++)
+    {
+        DC=a[i];
+        for(int j=0; j<strlen(a); j++)
+        {
+            if(DC!=a[j])
+            {
+                if(a[j]==a[j-1]) continue;
+                else aDC++;
+            }
+        }
+    }
+    for(int i=0; i<strlen(b); i++)
+    {
+        DC=b[i];
+        for(int j=0; j<strlen(b); j++)
+        {
+            if(DC!=b[j])
+            {
+                if(b[j]==b[j-1]) continue;
+                else bDC++;
+            }
+        }
+    }
+    
+    if((strlen(a)-strlen(b))==0)             // Compairing the lenth first
+    {
+        if(aDC>bDC)                         // Then comapairing th count
+          return 0;
+        else return 1;
+    }
+    else return 1; 
+}
+
+int sort_by_length(const char* a, const char* b) {               // (4)
+    if((strlen(a)-strlen(b))==0)             // Checking Length
+    {
+        if(a[0]>b[0])              // Cheaking first alphabet
+          return 0;
+        else return 1;
+    }
+    else return 1;
+}
+
+void string_sort(char** arr,const int len,int (*cmp_func)(const char* a, const char* b)){
+    
+    char *a;
+    char *b;
+    char *temp;
+    for(int i=0; i<len-1; i++)
+    {
+        for(int j=0; j<len-i-1; j++)
+        {
+            //a = arr[j];
+            //b = arr[j+1];
+            strcpy(a,arr[j]);       // Same shit
+            strcpy(b,arr[j+1]);
+            if((cmp_func(a,b))==0)
+            {
+                strcpy(temp,arr[j]);
+                strcpy(arr[j],arr[j+1]);
+                strcpy(arr[j+1],temp);
+            }
+        }
+    }
+    return;         // I dont know why I made this return statment
+
+}
+
+
+int main() 
+{
+    int n;
+    scanf("%d", &n);
+  
+    char** arr;
+	arr = (char**)malloc(n * sizeof(char*));
+  
+    for(int i = 0; i < n; i++){
+        *(arr + i) = malloc(1024 * sizeof(char));
+        scanf("%s", *(arr + i));
+        *(arr + i) = realloc(*(arr + i), strlen(*(arr + i)) + 1);
+    }
+  
+    string_sort(arr, n, lexicographic_sort);
+    for(int i = 0; i < n; i++)
+        printf("%s\n", arr[i]);
+    printf("\n");
+
+    string_sort(arr, n, lexicographic_sort_reverse);
+    for(int i = 0; i < n; i++)
+        printf("%s\n", arr[i]); 
+    printf("\n");
+
+    string_sort(arr, n, sort_by_length);
+    for(int i = 0; i < n; i++)
+        printf("%s\n", arr[i]);    
+    printf("\n");
+
+    string_sort(arr, n, sort_by_number_of_distinct_characters);
+    for(int i = 0; i < n; i++)
+        printf("%s\n", arr[i]); 
+    printf("\n");
+}
