@@ -22,7 +22,7 @@ int sort_by_number_of_distinct_characters(const char* a, const char* b) {       
     int aDC=1, bDC=1;         // Count of descrete characters in 'a' and 'b'
     //for(int i=0; i<strlen(a); i++)
     //{                               // The 'i' for loop is unnecessary
-        DC=a[i];
+        DC=a[0];
         for(int j=0; j<strlen(a); j++)
         {
             if(DC!=a[j])
@@ -34,7 +34,7 @@ int sort_by_number_of_distinct_characters(const char* a, const char* b) {       
     //}
     //for(int i=0; i<strlen(b); i++)
     //{                               // The 'i' for loop is unnecessary
-        DC=b[i];
+        DC=b[0];
         for(int j=0; j<strlen(b); j++)
         {
             if(DC!=b[j])
