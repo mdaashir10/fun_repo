@@ -20,8 +20,8 @@ int lexicographic_sort_reverse(const char* a, const char* b) {          // (2)
 int sort_by_number_of_distinct_characters(const char* a, const char* b) {         // (3)
     char DC;             // Descrete Character
     int aDC=1, bDC=1;         // Count of descrete characters in 'a' and 'b'
-    for(int i=0; i<strlen(a); i++)
-    {
+    //for(int i=0; i<strlen(a); i++)
+    //{                               // The 'i' for loop is unnecessary
         DC=a[i];
         for(int j=0; j<strlen(a); j++)
         {
@@ -31,9 +31,9 @@ int sort_by_number_of_distinct_characters(const char* a, const char* b) {       
                 else aDC++;
             }
         }
-    }
-    for(int i=0; i<strlen(b); i++)
-    {
+    //}
+    //for(int i=0; i<strlen(b); i++)
+    //{                               // The 'i' for loop is unnecessary
         DC=b[i];
         for(int j=0; j<strlen(b); j++)
         {
@@ -43,7 +43,7 @@ int sort_by_number_of_distinct_characters(const char* a, const char* b) {       
                 else bDC++;
             }
         }
-    }
+    //}
     
     if((strlen(a)-strlen(b))==0)             // Compairing the lenth first
     {
@@ -65,7 +65,7 @@ int sort_by_length(const char* a, const char* b) {               // (4)
 }
 
 void string_sort(char** arr,const int len,int (*cmp_func)(const char* a, const char* b)){
-    
+                                                                                           // main masala is here
     char *a;
     char *b;
     char *temp;
@@ -79,7 +79,7 @@ void string_sort(char** arr,const int len,int (*cmp_func)(const char* a, const c
             strcpy(b,arr[j+1]);
             if((cmp_func(a,b))==0)
             {
-                strcpy(temp,arr[j]);
+                strcpy(temp,arr[j]);            // Bubble sort shit
                 strcpy(arr[j],arr[j+1]);
                 strcpy(arr[j+1],temp);
             }
@@ -90,7 +90,7 @@ void string_sort(char** arr,const int len,int (*cmp_func)(const char* a, const c
 }
 
 
-int main() 
+int main()
 {
     int n;
     scanf("%d", &n);
