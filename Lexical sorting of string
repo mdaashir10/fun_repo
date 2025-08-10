@@ -5,41 +5,35 @@ Lexical sorting of an array of strings
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-int lexicographic_sort(const char* a, const char* b) {
+int lexicographic_sort(const char* a, const char* b) {    // (1)
     if(strcmp(a,b)>0)
       return 0;
     else return 1;
 }
 
-int lexicographic_sort_reverse(const char* a, const char* b) {
+int lexicographic_sort_reverse(const char* a, const char* b) {    // (2)
     if(strcmp(a,b)<0)
       return 0;
     else return 1;
 }
 
-int sort_by_number_of_distinct_characters(const char* a, const char* b) {
-    char DC;
-    int aDC=1, bDC=1;
+int sort_by_number_of_distinct_characters(const char* a, const char* b) {    // (3)
+
+    int aDC=0, bDC=0;
+    int arr[26];
     
-        DC=a[0];
-        for(int j=0; j<strlen(a); j++)
-        {
-            if(DC!=a[j])
-            {
-                if(a[j]==a[j-1]) continue;
-                else aDC++;
-            }
-        }
+    for(int i=0; i<26; i++) arr[i] = 0;       // Assigning to zero
+
+    for(int i=0; i<strlen(a); i++) arr[a[i]-97]++;      // Incrementing at that particular character
+
+    for(int i=0; i<26; i++) if(arr[i]) aDC++;      // Counting when arr[] is not zero
     
-        DC=b[0];
-        for(int j=0; j<strlen(b); j++)
-        {
-            if(DC!=b[j])
-            {
-                if(b[j]==b[j-1]) continue;
-                else bDC++;
-            }
-        }
+    for(int i=0; i<26; i++) arr[i] = 0;       // Same
+
+    for(int i=0; i<strlen(b); i++) arr[b[i]-97]++;     // Same
+
+    for(int i=0; i<26; i++) if(arr[i]) bDC++;      // Same
+    
     
     if(aDC>bDC) return 0;
     
@@ -48,7 +42,7 @@ int sort_by_number_of_distinct_characters(const char* a, const char* b) {
     else return 1; 
 }
 
-int sort_by_length(const char* a, const char* b) {
+int sort_by_length(const char* a, const char* b) {   // (4)
     
     if(strlen(a)>strlen(b)) return 0;
      
@@ -59,16 +53,11 @@ int sort_by_length(const char* a, const char* b) {
 
 void string_sort(char** arr,const int len,int (*cmp_func)(const char* a, const char* b)){
     
-    char a[5000];
-    char b[5000];
     char temp[5000];
     for(int i=0; i<len-1; i++)
     {
         for(int j=0; j<len-i-1; j++)
         {
-            strcpy(a,arr[j]);
-            strcpy(b,arr[j+1]);
-            
             if((cmp_func(arr[j],arr[j+1]))==0)
             {
                 strcpy(temp,arr[j]);
