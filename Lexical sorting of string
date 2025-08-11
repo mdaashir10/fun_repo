@@ -1,26 +1,30 @@
 /*
 Lexical sorting of an array of strings
 */
+// Solution for the challenging HackerRank question
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 int lexicographic_sort(const char* a, const char* b) {    // (1)
+                                                          // Sorting alphabetically
     if(strcmp(a,b)>0)
       return 0;
     else return 1;
 }
 
 int lexicographic_sort_reverse(const char* a, const char* b) {    // (2)
+                                                                  // Sorting alphabetically backwards
     if(strcmp(a,b)<0)
       return 0;
     else return 1;
 }
 
 int sort_by_number_of_distinct_characters(const char* a, const char* b) {    // (3)
-
-    int aDC=0, bDC=0;
-    int arr[26];
+                                                                             // Sorting according to number of descreate charachters
+    int aDC=0, bDC=0;             // Count of 'a' string and 'b' string
+    int arr[26];            // Array resembling 26 alphabets in english
     
     for(int i=0; i<26; i++) arr[i] = 0;       // Assigning to zero
 
@@ -43,7 +47,7 @@ int sort_by_number_of_distinct_characters(const char* a, const char* b) {    // 
 }
 
 int sort_by_length(const char* a, const char* b) {   // (4)
-    
+                                                     // Sorting according to string leangth
     if(strlen(a)>strlen(b)) return 0;
      
     else if(strlen(a)==strlen(b) && strcmp(a,b)>0) return 0;
@@ -52,17 +56,17 @@ int sort_by_length(const char* a, const char* b) {   // (4)
 }
 
 void string_sort(char** arr,const int len,int (*cmp_func)(const char* a, const char* b)){
-    
+                                                                                           // Custom sorting algorithm
     char temp[5000];
     for(int i=0; i<len-1; i++)
     {
         for(int j=0; j<len-i-1; j++)
         {
-            if((cmp_func(arr[j],arr[j+1]))==0)
-            {
-                strcpy(temp,arr[j]);
-                strcpy(arr[j],arr[j+1]);
-                strcpy(arr[j+1],temp);
+            if((cmp_func(arr[j],arr[j+1]))==0)                // Bubble sort algorithm
+            {                                                 // NOTE : Do not use strcpy(), because it may lead to memory overwrite
+                char *temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
             }
         }
     }
