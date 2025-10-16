@@ -4,10 +4,7 @@ yo yo
 
 some change 01
 
-<<<<<<< HEAD
 hi bro wassup
 
 hello universe
-=======
 hello world
->>>>>>> main
